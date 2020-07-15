@@ -11,6 +11,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @SpringBootApplication
 @EnableEurekaClient
 @MapperScan(basePackages = "com.cas.mapper")
+
 public class OrderApp {
     public static void main(String[] args) {
         SpringApplication.run(OrderApp.class, args);

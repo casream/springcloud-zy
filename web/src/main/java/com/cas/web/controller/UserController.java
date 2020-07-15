@@ -5,6 +5,8 @@ import com.cas.web.service.UserService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +21,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Value("${server.port}")
+    private int port;
+
+    @Value("${username}")
+    private String username;
+
+    @Autowired
+    private Environment environment;
+
+    @RequestMapping("/getInfo")
+    public String getInfo() {
+        String str = "===Value=username：" + username + "====redisPwd：" + environment.getProperty("redis.password");
+
+        log.info("=======Environment：" + environment.getProperty("username"));
+        log.info("=====Value:" + username);
+        return str;
+    }
 
     @RequestMapping("/query")
     public String query() {
@@ -46,6 +66,7 @@ public class UserController {
 
     /**
      * 会发生异常
+     *
      * @return
      */
     @RequestMapping("/error1")

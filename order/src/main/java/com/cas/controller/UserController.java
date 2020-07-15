@@ -5,6 +5,8 @@ import com.cas.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,7 @@ import java.util.List;
  * @Date 2020/7/10 12:28
  * @Created by Administrator
  */
+@RefreshScope
 @RestController
 @Slf4j
 public class UserController {
@@ -24,6 +27,23 @@ public class UserController {
 
     @Value("${server.port}")
     private int port;
+
+    @Value("${username}")
+    private String username;
+
+
+    @Autowired
+    Environment environment;
+
+    @RequestMapping("/getInfo")
+    public String getInfo() {
+        String str = "===Value=username：" + username + "====redisPwd：" + environment.getProperty("redis.password") ;
+        log.info("=======Environment：" + environment.getProperty("username"));
+        log.info("=====Value:" +username);
+        log.info(str);
+        return str;
+    }
+
 
     @RequestMapping("/query")
     public String query() {
@@ -44,7 +64,7 @@ public class UserController {
     }
 
     @RequestMapping("/error1")
-    public String error()  {
+    public String error() {
         log.info(port + Thread.currentThread().getName() + "=============error==========");
         return userServcie.error();
     }
