@@ -31,34 +31,5 @@
     select id, card_name, `name`
     from teacher
   </select>
-  <resultMap id="BaseResultMap" type="com.cas.pojo.Teacher">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="card_name" jdbcType="VARCHAR" property="card_name" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from teacher
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.cas.pojo.Teacher">
-    insert into teacher (id, card_name, `name`
-      )
-    values (#{id,jdbcType=INTEGER}, #{card_name,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
-      )
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.cas.pojo.Teacher">
-    update teacher
-    set card_name = #{card_name,jdbcType=VARCHAR},
-      `name` = #{name,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, card_name, `name`
-    from teacher
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, card_name, `name`
-    from teacher
-  </select>
+
 </mapper>

@@ -10,6 +10,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 /**
  * @Classname UserController
  * @Description TODO
@@ -43,6 +47,13 @@ public class UserController {
     @RequestMapping("/query")
     public String query() {
         return userService.query();
+    }
+
+    @RequestMapping("/getSession")
+    public String getSession(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        session.setAttribute("name","peter");
+        return "sucess";
     }
 
     @RequestMapping("/selectAll")
